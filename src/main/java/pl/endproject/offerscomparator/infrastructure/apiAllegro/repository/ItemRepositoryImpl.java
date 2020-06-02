@@ -24,9 +24,9 @@ public class ItemRepositoryImpl implements ItemRepository {
         return listOfAllegroItems;
     }
 
-
     private void setListOfAllegroItems(Document allegroPage) {
         Elements elementsFromAllegroPage = allegroPage.select("._9c44d_2H7Kt");
+        listOfAllegroItems.clear();
         for (Element singleElementFromAllegroPage : elementsFromAllegroPage
         ) {
             listOfAllegroItems.add(createItem(singleElementFromAllegroPage));

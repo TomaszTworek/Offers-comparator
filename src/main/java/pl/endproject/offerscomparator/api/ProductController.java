@@ -35,7 +35,6 @@ public class ProductController {
 
     @PostMapping("/findProducts")
     public String findOffers(@RequestParam String userSearch) {
-
         return "redirect:/offers?userSearch=" + userSearch;
     }
 
