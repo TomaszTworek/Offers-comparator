@@ -18,5 +18,10 @@ public class ProductController {
         this.productService = productService;
     }
 
+    @GetMapping("/offers")
+    public String getOffers() {
+        return "offers-table-view";
+    }
+
 
 }
