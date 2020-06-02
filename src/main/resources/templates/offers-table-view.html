@@ -246,39 +246,24 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Name</th>
                 <th>Image</th>
+                <th>Name</th>
                 <th>Price</th>
-                <th>Url</th>
                 <th>Source</th>
                 <th>Action</th>
             </tr>
             </thead>
             <tbody>
-                <tr th:each="product,itemStat: *{products}">
-                    <td th:text="${itemStat.index + 1}"></td>
-                    <td><img class="my-image" th:src="@{${product.imageUrl}}"/></td>
-                    <td th:text="${product.name}"></td>
-                    <td th:text="${product.price} + ' zł'"></td>
-                    <td><a th:text="${#strings.abbreviate(product.url,40)}" th:href="@{${product.url}}"></a></td>
-                    <td th:text="${product.source}"></td>
-                    <td><span class="material-icons">favorite</span></td>
-                </tr>
-
+            <tr th:each="product,itemStat: *{products}">
+                <td th:text="${itemStat.index + 1}"></td>
+                <td><img class="my-image" th:src="@{${product.imageUrl}}"/></td>
+                <td><a th:text="${product.name}" th:href="@{${product.url}}"></a></td>
+                <td th:text="${product.price} + ' zł'"></td>
+                <td th:text="${product.source}"></td>
+                <td><span class="material-icons">favorite</span></td>
+            </tr>
             </tbody>
         </table>
-        <!-- <div class="clearfix">
-             <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-             <ul class="pagination">
-                 <li class="page-item disabled"><a href="#">Previous</a></li>
-                 <li class="page-item"><a href="#" class="page-link">1</a></li>
-                 <li class="page-item"><a href="#" class="page-link">2</a></li>
-                 <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                 <li class="page-item"><a href="#" class="page-link">4</a></li>
-                 <li class="page-item"><a href="#" class="page-link">5</a></li>
-                 <li class="page-item"><a href="#" class="page-link">Next</a></li>
-             </ul>
-         </div>-->
     </div>
 </div>
 </body>
