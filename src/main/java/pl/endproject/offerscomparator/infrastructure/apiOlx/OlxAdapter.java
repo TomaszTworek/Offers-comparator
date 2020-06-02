@@ -23,7 +23,7 @@ public class OlxAdapter implements ProductRepository {
     }
 
     private List<ProductDto> getProductsFromScraper(String phrase) {
-        List<String> scrapedProducts = OlxScraper.searchFor(phrase, 10);
+        List<String> scrapedProducts = OlxScraper.searchFor(phrase, 25);
         List<ProductDto> dtosProducts = new ArrayList<>();
         for (String productFromScraper : scrapedProducts) {
             ProductDto newProduct = convertStringProductFromScraperToProductDto(productFromScraper);

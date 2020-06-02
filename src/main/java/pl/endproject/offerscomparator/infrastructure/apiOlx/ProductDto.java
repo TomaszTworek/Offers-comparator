@@ -26,7 +26,6 @@ public class ProductDto {
     }
 
 
-
     private Double convertPrice(String price) {
         String editedPrice = price.toLowerCase().trim();
         Double finalPrice;
@@ -39,7 +38,7 @@ public class ProductDto {
                 finalPrice = null;
                 break;
             default:
-                finalPrice = Double.parseDouble(editedPrice.replaceAll("[^0-9]+", " "));
+                finalPrice = Double.parseDouble(editedPrice.replace(",", ".").replaceAll("[^0-9.]+", " "));
                 break;
         }
         return finalPrice;
