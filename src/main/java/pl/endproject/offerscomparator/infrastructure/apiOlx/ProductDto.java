@@ -14,7 +14,6 @@ public class ProductDto {
     private String imageUrl;
     private final Source source = Source.OLX;
 
-
     public Product toDomain() {
         return Product.builder()
                 .name(this.name)
@@ -25,7 +24,6 @@ public class ProductDto {
                 .build();
     }
 
-
     private Double convertPrice(String price) {
         String editedPrice = price.toLowerCase().trim();
         Double finalPrice;
@@ -35,6 +33,7 @@ public class ProductDto {
                 break;
             case "do negocjacji":
             case "":
+            case "zamienię":
                 finalPrice = null;
                 break;
             default:

@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
+    <meta th:charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Offers comparator - get best offers on one site!</title>
@@ -222,7 +222,7 @@
 </head>
 <body>
 <div class="container searching-field">
-    <form th:action="@{/findProducts}" method="post" class="form-inline md-form mr-auto mb-4">
+    <form th:action="@{/findProducts}" th:charset="utf-8" method="post" class="form-inline md-form mr-auto mb-4">
         <input class="form-control mr-sm-2" type="text" th:name="userSearch"
                placeholder="Search" aria-label="Search"/>
         <button class="btn btn-primary" type="submit">Search for product</button>
