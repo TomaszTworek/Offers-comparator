@@ -27,19 +27,21 @@ public class ProductDto {
     private Double convertPrice(String price) {
         String editedPrice = price.toLowerCase().trim();
         Double finalPrice;
-        switch (editedPrice) {
-            case "za darmo":
-                finalPrice = 0.0;
-                break;
-            case "do negocjacji":
-            case "":
-            case "zamienię":
-                finalPrice = null;
-                break;
-            default:
-                finalPrice = Double.parseDouble(editedPrice.replace(",", ".").replaceAll("[^0-9.]+", " "));
-                break;
+        if (checkIfStringContainsNumbers(editedPrice)) {
+            finalPrice = convertStringToPrice(editedPrice);
+        } else if (editedPrice.equals("za darmo")) {
+            finalPrice = 0.0;
+        } else {
+            finalPrice = null;
         }
         return finalPrice;
+    }
+
+    private double convertStringToPrice(String editedPrice) {
+        return Double.parseDouble(editedPrice.replace(",", ".").replaceAll("[^0-9.]+", " "));
+    }
+
+    private boolean checkIfStringContainsNumbers(String editedPrice) {
+        return editedPrice.matches(".*\\d+.*");
     }
 }
