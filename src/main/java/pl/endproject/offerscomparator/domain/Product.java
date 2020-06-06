@@ -17,4 +17,6 @@ public class Product {
     private String url;
     private String imageUrl;
     private Source source;
+
+
 }
