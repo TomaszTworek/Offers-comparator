@@ -14,7 +14,7 @@ public class OlxScraperTest {
         String patternString = ".*::.*::.*::.*";
 
         //when
-        List<String> result = OlxScraper.searchFor(searchingItem, 5);
+        List<String> result = OlxScraper.searchFor(searchingItem);
         Pattern pattern = Pattern.compile(patternString);
 
         //then
@@ -22,22 +22,10 @@ public class OlxScraperTest {
     }
 
     @Test
-    public void shouldReturnFiveElementsWhenWeSearchForProducts() {
-        //given
-        String searchingItem = "Potop";
-        int numberOfItems = 5;
-
-        //when
-        List<String> result = OlxScraper.searchFor(searchingItem, 5);
-        //then
-        assertThat(result.size()).isEqualTo(5);
-    }
-
-    @Test
     public void displayResultOfScraperItems() {
-        String searchingItem = "Potop";
+        String searchingItem = "krzesło";
 
-        List<String> result = OlxScraper.searchFor(searchingItem, 5);
+        List<String> result = OlxScraper.searchFor(searchingItem);
 
         for (String product:result) {
             System.out.println(product);

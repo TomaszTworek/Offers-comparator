@@ -4,7 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import pl.endproject.offerscomparator.domain.Product;
 import pl.endproject.offerscomparator.domain.Source;
+import java.nio.charset.StandardCharsets;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 public class ProductDtoTest {
 
@@ -12,6 +14,7 @@ public class ProductDtoTest {
     private ProductDto productDtoTwo;
     private ProductDto productDtoThree;
     private ProductDto productDtoFour;
+    private ProductDto productDtoFive;
     private Product product;
 
     @Before
@@ -37,6 +40,12 @@ public class ProductDtoTest {
         productDtoFour = ProductDto.builder()
                 .name("Test1")
                 .price("za darmo")
+                .imageUrl("https://sdsae.pl")
+                .url("https://sdaq.pl")
+                .build();
+        productDtoFive = ProductDto.builder()
+                .name("Test1")
+                .price("zamienię")
                 .imageUrl("https://sdsae.pl")
                 .url("https://sdaq.pl")
                 .build();
@@ -109,6 +118,24 @@ public class ProductDtoTest {
 
         //when
         Product resultProduct = productDtoFour.toDomain();
+
+        //then
+        assertThat(resultProduct).isEqualTo(product);
+    }
+
+    @Test
+    public void shouldConvertProductDtoToDomainProductWhenPriceIsChangeForSomething() {
+        //given
+        product = Product.builder()
+                .name("Test1")
+                .price(null)
+                .imageUrl("https://sdsae.pl")
+                .url("https://sdaq.pl")
+                .source(Source.OLX)
+                .build();
+
+        //when
+        Product resultProduct = productDtoFive.toDomain();
 
         //then
         assertThat(resultProduct).isEqualTo(product);
