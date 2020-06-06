@@ -96,7 +96,7 @@ public class ItemRepositoryImpl implements ItemRepository {
             e.getStackTrace();
             e.getMessage();
         }
-        return null;
+        return new ArrayList<>();
     }
 
 
