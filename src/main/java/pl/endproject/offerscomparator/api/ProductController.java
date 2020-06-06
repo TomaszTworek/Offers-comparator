@@ -1,24 +1,22 @@
 package pl.endproject.offerscomparator.api;
 
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.view.RedirectView;
 import pl.endproject.offerscomparator.domain.Product;
 import pl.endproject.offerscomparator.domain.ProductService;
 
-import java.util.ArrayList;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Controller
 public class ProductController {
 
     private ProductService productService;
-
 
     public ProductController(ProductService productService) {
         this.productService = productService;
@@ -34,8 +32,9 @@ public class ProductController {
     }
 
     @PostMapping("/findProducts")
-    public String findOffers(@RequestParam String userSearch) {
-        return "redirect:/offers?userSearch=" + userSearch;
+    public String findOffers(@RequestParam String userSearch) throws UnsupportedEncodingException {
+        String encodedUserSearch = URLEncoder.encode(userSearch, StandardCharsets.UTF_8.toString());
+        return "redirect:/offers?userSearch=" + encodedUserSearch;
     }
 
 
