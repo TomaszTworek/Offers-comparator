@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -31,7 +32,8 @@ class OlxScraper {
 
     private static List<String> connectElements(Elements names, Elements prices, Elements imageUrls, Elements productUrl) {
         List<String> foundElements = new ArrayList<>();
-        for (int i = 0; i < names.size(); i++) {
+        Integer minValue = Collections.min(List.of(names.size(), prices.size(), imageUrls.size(), productUrl.size()));
+        for (int i = 0; i < minValue; i++) {
             foundElements.add(names.get(i).text()
                     + "::" + prices.get(i).text()
                     + "::" + imageUrls.get(i).absUrl("src")
