@@ -36,9 +36,20 @@
                 </div>
                 <div class="col-sm-7 operation-buttons">
                     <input type="hidden" name="userSearch" th:name="userSearch" th:value="${session.userSearch}">
-                    <a class="btn btn-primary" href="/printPdf"><i class="material-icons">&#xe90d;</i> <span>Print to PDF</span></a>
-                    <a href="/printExcel" class="btn btn-primary"><i class="material-icons">&#xE24D;</i>
-                        <span>Export to Excel</span></a>
+
+                    <th:block th:if="${session.products == null}">
+                        <a class="btn btn-primary" id="pdf-href" href="#"><i class="material-icons">&#xe90d;</i> <span>Print to PDF</span></a>
+                        <a href="#" id="excel-href" class="btn btn-primary"><i class="material-icons">&#xE24D;</i>
+                            <span>Export to Excel</span></a>
+                    </th:block>
+
+                    <th:block th:if="${session.products != null}">
+                        <a class="btn btn-primary" href="/printPdf"><i class="material-icons">&#xe90d;</i> <span>Print to PDF</span></a>
+                        <a href="/printExcel" class="btn btn-primary"><i class="material-icons">&#xE24D;</i>
+                            <span>Export to Excel</span></a>
+                    </th:block>
+
+
                 </div>
             </div>
         </div>
@@ -70,6 +81,14 @@
             </tbody>
 
         </table>
+    </div>
+</div>
+
+<!-- Pop up window -->
+<div class="bg-modal">
+    <div class="modal-contents">
+        <div class="close">+</div>
+        <h3>Twoje wyniki wyszukiwania są puste. Spróbuj wpisać słowo kluczowe zanim będziesz pobierać </h3>
     </div>
 </div>
 

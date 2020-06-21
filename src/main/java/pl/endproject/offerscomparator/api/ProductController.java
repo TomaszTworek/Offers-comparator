@@ -28,14 +28,10 @@ public class ProductController {
     private Reader reader;
     private List<Product> products;
 
-    public ProductController(ProductService productService, ReaderConfig readerConfig,Reader reader) {
+    public ProductController(ProductService productService, ReaderConfig readerConfig, Reader reader) {
         this.productService = productService;
         this.readerConfig = readerConfig;
         this.reader = reader;
-    }
-
-    public List<Product> getProducts() {
-        return products;
     }
 
     @GetMapping("/offers")
@@ -49,7 +45,7 @@ public class ProductController {
                 return "no-results";
             }
             model.addAttribute("products", products);
-            session.setAttribute("products",products);
+            session.setAttribute("products", products);
         }
         return "getAll";
     }

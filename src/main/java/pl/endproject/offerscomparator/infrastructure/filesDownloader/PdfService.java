@@ -112,12 +112,6 @@ public class PdfService extends FileDownloaderService {
     }
 
     private void fillPdfFile(PdfPTable pdfPTable, List<Product> products) throws IOException, BadElementException {
-        //TODO:1. Zrobić DTO te same pola + image: Image(iText)
-        //2. Map product --> ProductDTO
-        //3. Dla każdego productDTo wielowątkowo odpalić getInstance() // Lista threadów i sprawdzać
-        // czy się wykonały wszystkie --> uzyskujemy List<ProductDTO> z obrazkami
-        //4. Przerobić poniższego for'a ProductDto
-
         for (Product product : products) {
             PdfPCell imageValue = new PdfPCell(Image.getInstance(product.getImageUrl()), true);
             imageValue.setPaddingLeft(10);

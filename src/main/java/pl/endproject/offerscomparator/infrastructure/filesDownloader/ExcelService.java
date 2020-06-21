@@ -86,7 +86,6 @@ public class ExcelService extends FileDownloaderService {
 
             cell = row.createCell(3, CellType.STRING);
             cell.setCellValue(p.getUrl());
-
         }
     }
 
