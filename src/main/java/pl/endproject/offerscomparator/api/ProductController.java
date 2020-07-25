@@ -1,6 +1,7 @@
 package pl.endproject.offerscomparator.api;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import pl.endproject.offerscomparator.infrastructure.autocompleteFeature.Phrase;
 import pl.endproject.offerscomparator.infrastructure.autocompleteFeature.Reader;
 import pl.endproject.offerscomparator.infrastructure.autocompleteFeature.ReaderConfig;
 import pl.endproject.offerscomparator.infrastructure.autocompleteFeature.SuggestionsWrapper;
+import pl.endproject.offerscomparator.infrastructure.memoryCash.MemoryCash;
 
 
 import javax.servlet.http.Cookie;
@@ -30,6 +32,9 @@ public class ProductController {
     private Reader reader;
     private List<Product> products;
 
+    @Autowired
+    private MemoryCash memoryCash;
+
     public ProductController(ProductService productService, ReaderConfig readerConfig, Reader reader) {
         this.productService = productService;
         this.readerConfig = readerConfig;
@@ -46,18 +51,35 @@ public class ProductController {
         session.setAttribute("products", null);
 
         if (!userSearch.isBlank()) {
-            /*benchmark(userSearch);*/
+
             products = productService.findForPhraseAsync(userSearch);
 
             if (products.isEmpty()) {
                 return "no-results";
             }
             model.addAttribute("products", products);
-            session.setAttribute("products", products);
 
-            Cookie newCookie = new Cookie("myCookie", "1");
-            newCookie.setMaxAge(30000);
-            response.addCookie(newCookie);
+
+
+            /* Dodawanie do Listy */
+            List<List<Product>> cashProducts = memoryCash.getCashProducts();
+            cashProducts.add(products);
+            model.addAttribute("id", memoryCash.getId());
+
+
+
+
+
+
+
+
+            /* Version with cookies*/
+//            session.setAttribute("products", products);
+
+
+//            Cookie newCookie = new Cookie("myCookie", "1");
+//            newCookie.setMaxAge(30000);
+//            response.addCookie(newCookie);
         }
         return "getAll";
     }
