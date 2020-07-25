@@ -61,10 +61,15 @@ public class ProductController {
 
 
 
-            /* Dodawanie do Listy */
-            List<List<Product>> cashProducts = memoryCash.getCashProducts();
-            cashProducts.add(products);
-            model.addAttribute("id", memoryCash.getId());
+            /* Dodawanie do Listy cache  */
+            int id = memoryCash.saveProducts(products);
+
+            model.addAttribute("id",id);
+
+
+
+
+
 
 
 

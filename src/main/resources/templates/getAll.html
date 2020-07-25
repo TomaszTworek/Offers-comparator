@@ -18,6 +18,7 @@
     <link href="../static/css/get-all.css" th:href="@{/css/get-all.css}" rel="stylesheet"/>
 
 
+
     <style>
         .hidden {
             display: none;
@@ -54,8 +55,8 @@
 
 <!--                    <th:block th:if="${session.products != null}">-->
 <!--                        <a class="btn btn-primary" href="/printPdf" id="loading-pdf"><span>Print to PDF</span></a>-->
-                        <button th:attr="data-id=${id}" class="btn btn-primary"  id="#loading-pdf">Click</button>
-                        <div id="loader" class="hidden"><i class='material-icons'>&#xe90d;</i></div>
+                        <button th:attr="data-id=${id}" onclick="handleClick()" class="btn btn-primary"  id="loading-pdf"><i class="material-icons">&#xe90d;</i> <span>Print to PDF</span></button>
+                        <div id="loader" class="hidden"><i class='fa fa-spinner fa-spin '></i></div>
 
                         <a href="/printExcel" id="loading"
                            data-loading-text="<i class='fa fa-spinner fa-spin '></i> Loading file"
@@ -107,6 +108,7 @@
 
 <!--Import https://www.devbridge.com/sourcery/components/jquery-autocomplete/#-->
 <!-- Compiled and minified JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js"></script>
 <script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
 <script type="text/javascript" src="../static/js/getAll.js" th:src="@{/js/getAll.js}"></script>
 <script type="text/javascript" src="../static/js/pop-up-window.js" th:src="@{/js/pop-up-window.js}"></script>

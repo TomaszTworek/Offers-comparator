@@ -12,8 +12,9 @@ import java.util.List;
 public class MemoryCash {
     private List<List<Product>> cashProducts = new ArrayList<>();
 
-    public int getId(){
-        return cashProducts.size()-1;
+    private int getNextId(){
+
+        return cashProducts.size();
     }
 
     public List<List<Product>> getCashProducts() {
@@ -23,5 +24,12 @@ public class MemoryCash {
     public List<Product> findById(int id) {
 
         return cashProducts.get(id);
+    }
+
+    public int saveProducts(List<Product> products){
+        int id = getNextId();
+        cashProducts.add(id,products);
+
+        return id;
     }
 }

@@ -39,8 +39,6 @@ public class DownloadFilesController {
     public void getPdfFile(HttpServletRequest request, HttpServletResponse response, HttpSession session, @PathVariable("id") int id) {
 //        List<Product> products = (List<Product>) session.getAttribute("products");
 
-       id = memoryCash.getId();
-
 
         List<Product> byId = memoryCash.findById(id);//szuka po Id
 
