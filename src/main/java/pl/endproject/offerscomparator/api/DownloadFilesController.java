@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pl.endproject.offerscomparator.domain.Product;
 import pl.endproject.offerscomparator.infrastructure.filesDownloader.ExcelService;
 import pl.endproject.offerscomparator.infrastructure.filesDownloader.PdfService;
-import pl.endproject.offerscomparator.infrastructure.memoryCash.MemoryCash;
+import pl.endproject.offerscomparator.infrastructure.memoryCache.MemoryCache;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +25,7 @@ public class DownloadFilesController {
     private ServletContext servletContext;
 
     @Autowired
-    private  MemoryCash memoryCash;
+    private MemoryCache memoryCache;
 
     public DownloadFilesController(ExcelService excelService, PdfService pdfService, ServletContext servletContext) {
         this.excelService = excelService;
@@ -34,22 +34,21 @@ public class DownloadFilesController {
 
     }
 
-    @RequestMapping("/printPdf/{id}") // id from list
+    @RequestMapping("/printPdf/{id}")
     @ResponseBody
     public void getPdfFile(HttpServletRequest request, HttpServletResponse response, HttpSession session, @PathVariable("id") int id) {
-//        List<Product> products = (List<Product>) session.getAttribute("products");
 
-
-        List<Product> byId = memoryCash.findById(id);//szuka po Id
+        List<Product> byId = memoryCache.findById(id);
 
         pdfService.createPdf(byId, servletContext, request, response);
     }
 
-    @RequestMapping("/printExcel")
+    @RequestMapping("/printExcel/{id}")
     @ResponseBody
-    public void getExcel(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-        List<Product> products = (List<Product>) session.getAttribute("products");
-        excelService.generateExcel(products, servletContext, request, response);
+    public void getExcel(HttpServletRequest request, HttpServletResponse response, HttpSession session,@PathVariable("id") int id) {
+
+        List<Product> byId = memoryCache.findById(id);
+        excelService.generateExcel(byId, servletContext, request, response);
     }
 
 }

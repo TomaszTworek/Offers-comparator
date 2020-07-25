@@ -47,22 +47,18 @@
                 <div class="col-sm-7 operation-buttons">
                     <input type="hidden" name="userSearch" th:name="userSearch" th:value="${session.userSearch}">
 
-<!--                    <th:block th:if="${session.products == null}">-->
-<!--                        <a class="btn btn-primary" id="pdf-href" href="#"><i class="material-icons">&#xe90d;</i> <span>Print to PDF</span></a>-->
-<!--                        <a href="#" id="excel-href" class="btn btn-primary"><i class="material-icons">&#xE24D;</i>-->
-<!--                            <span>Export to Excel</span></a>-->
-<!--                    </th:block>-->
+                    <th:block th:if="${id == null}">
+                        <a class="btn btn-primary" id="pdf-href" href="#"><i class="material-icons">&#xe90d;</i> <span>Print to PDF</span></a>
+                        <a href="#" id="excel-href" class="btn btn-primary"><i class="material-icons">&#xE24D;</i>
+                            <span>Export to Excel</span></a>
+                    </th:block>
 
-<!--                    <th:block th:if="${session.products != null}">-->
-<!--                        <a class="btn btn-primary" href="/printPdf" id="loading-pdf"><span>Print to PDF</span></a>-->
+                    <th:block th:if="${id != null}">
                         <button th:attr="data-id=${id}" onclick="handleClick()" class="btn btn-primary"  id="loading-pdf"><i class="material-icons">&#xe90d;</i> <span>Print to PDF</span></button>
                         <div id="loader" class="hidden"><i class='fa fa-spinner fa-spin '></i></div>
+                        <button th:attr="data-id=${id}" id="btn-excel" onclick="handleExcelClick()" class="btn btn-primary"><i class="material-icons">&#xE24D;</i><span>Print to Excel</span> </button>
 
-                        <a href="/printExcel" id="loading"
-                           data-loading-text="<i class='fa fa-spinner fa-spin '></i> Loading file"
-                           class="btn btn-primary " autocomplete="off"><i class="material-icons">&#xE24D;</i>
-                            Export to Excel</a>
-<!--                    </th:block>-->
+                    </th:block>
                 </div>
             </div>
         </div>

@@ -11,10 +11,9 @@ import pl.endproject.offerscomparator.infrastructure.autocompleteFeature.Phrase;
 import pl.endproject.offerscomparator.infrastructure.autocompleteFeature.Reader;
 import pl.endproject.offerscomparator.infrastructure.autocompleteFeature.ReaderConfig;
 import pl.endproject.offerscomparator.infrastructure.autocompleteFeature.SuggestionsWrapper;
-import pl.endproject.offerscomparator.infrastructure.memoryCash.MemoryCash;
+import pl.endproject.offerscomparator.infrastructure.memoryCache.MemoryCache;
 
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
@@ -33,7 +32,7 @@ public class ProductController {
     private List<Product> products;
 
     @Autowired
-    private MemoryCash memoryCash;
+    private MemoryCache memoryCache;
 
     public ProductController(ProductService productService, ReaderConfig readerConfig, Reader reader) {
         this.productService = productService;
@@ -59,32 +58,10 @@ public class ProductController {
             }
             model.addAttribute("products", products);
 
-
-
-            /* Dodawanie do Listy cache  */
-            int id = memoryCash.saveProducts(products);
+            int id = memoryCache.saveProducts(products);
 
             model.addAttribute("id",id);
 
-
-
-
-
-
-
-
-
-
-
-
-
-            /* Version with cookies*/
-//            session.setAttribute("products", products);
-
-
-//            Cookie newCookie = new Cookie("myCookie", "1");
-//            newCookie.setMaxAge(30000);
-//            response.addCookie(newCookie);
         }
         return "getAll";
     }

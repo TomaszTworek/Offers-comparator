@@ -1,4 +1,4 @@
-package pl.endproject.offerscomparator.infrastructure.memoryCash;
+package pl.endproject.offerscomparator.infrastructure.memoryCache;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Component
-public class MemoryCash {
+public class MemoryCache {
     private List<List<Product>> cashProducts = new ArrayList<>();
 
     private int getNextId(){
