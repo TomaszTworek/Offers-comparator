@@ -6,10 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.endproject.offerscomparator.domain.Product;
 import pl.endproject.offerscomparator.domain.ProductService;
-import pl.endproject.offerscomparator.infrastructure.autocompleteFeature.Phrase;
-import pl.endproject.offerscomparator.infrastructure.autocompleteFeature.Reader;
-import pl.endproject.offerscomparator.infrastructure.autocompleteFeature.ReaderConfig;
-import pl.endproject.offerscomparator.infrastructure.autocompleteFeature.SuggestionsWrapper;
+import pl.endproject.offerscomparator.subdomains.autocompleteFeature.Phrase;
+import pl.endproject.offerscomparator.subdomains.autocompleteFeature.Reader;
+import pl.endproject.offerscomparator.subdomains.autocompleteFeature.ReaderConfig;
+import pl.endproject.offerscomparator.subdomains.autocompleteFeature.SuggestionsWrapper;
 
 
 import javax.servlet.http.HttpServletRequest;

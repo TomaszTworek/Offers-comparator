@@ -7,12 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.endproject.offerscomparator.infrastructure.userProfile.dao.ProfileDao;
-import pl.endproject.offerscomparator.infrastructure.userProfile.model.Address;
-import pl.endproject.offerscomparator.infrastructure.userProfile.model.BasicInformation;
-import pl.endproject.offerscomparator.infrastructure.userProfile.model.Profile;
-import pl.endproject.offerscomparator.infrastructure.userRegistration.model.User;
-import pl.endproject.offerscomparator.infrastructure.userRegistration.service.UserServiceImpl;
+import pl.endproject.offerscomparator.subdomains.userProfile.dao.ProfileDao;
+import pl.endproject.offerscomparator.subdomains.userProfile.model.Address;
+import pl.endproject.offerscomparator.subdomains.userProfile.model.BasicInformation;
+import pl.endproject.offerscomparator.subdomains.userProfile.model.Profile;
+import pl.endproject.offerscomparator.subdomains.userRegistration.model.User;
+import pl.endproject.offerscomparator.subdomains.userRegistration.service.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -22,8 +22,7 @@ import java.util.List;
 
 @Service
 public class ExcelService extends FileDownloaderService {
-    @Autowired
-    PdfService pdfService;
+
     private Cell cell;
     private Row row;
 
