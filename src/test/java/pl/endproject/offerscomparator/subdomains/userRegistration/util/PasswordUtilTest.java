@@ -14,7 +14,7 @@ public class PasswordUtilTest {
 
         //when
         String actual = PasswordUtil.hashPassword(password_plaintext);
-
+        System.out.println(actual);
         //then
         assertThat(actual,is(startsWith("$2a$")));
         assertThat(actual.length(),allOf((greaterThan(0)),(lessThan(250))));

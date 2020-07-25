@@ -25,7 +25,6 @@ public class UserController {
 
     private final UserServiceImpl userService;
     private final ProfileDao profileDao;
-    private User loginUser;
 
 
     @Autowired
@@ -76,7 +75,7 @@ public class UserController {
     public String login(HttpSession session, @RequestParam(value = "username", required = true) String username,
                         @RequestParam(value = "password", required = true) String password) {
 
-        loginUser = userService.loginUser(username, password);
+        User loginUser = userService.loginUser(username, password);
         if (loginUser != null) {
             session.setAttribute("loginUser", loginUser);
         } else {
@@ -93,6 +92,7 @@ public class UserController {
 
     @GetMapping("/profile")
     public String profile(HttpSession session) {
+        User loginUser = (User) session.getAttribute("loginUser");
         if (loginUser == null) {
             return "redirect:/offers";
         } else {
@@ -115,8 +115,10 @@ public class UserController {
                 userProfile.getBasicInformation().setFirstName(request.getParameter("firstName"));
                 userProfile.getBasicInformation().setLastName(request.getParameter("lastName"));
                 userProfile.getBasicInformation().setGender(request.getParameter("gender"));
-                userProfile.getBasicInformation().setBirthDate(LocalDate.parse(request.getParameter("birthDate")));
                 userProfile.getBasicInformation().setPhoneNumber(request.getParameter("phoneNumber"));
+                if (request.getParameter("birthDate") != null) {
+                    userProfile.getBasicInformation().setBirthDate(LocalDate.parse(request.getParameter("birthDate")));
+                }
 
                 break;
             case "address":
