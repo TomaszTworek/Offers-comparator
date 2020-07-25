@@ -5,26 +5,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.endproject.offerscomparator.infrastructure.userRegistration.model.User;
-import pl.endproject.offerscomparator.infrastructure.userRegistration.service.InvalidUser;
-import pl.endproject.offerscomparator.infrastructure.userRegistration.service.UserServiceImpl;
+import pl.endproject.offerscomparator.subdomains.userProfile.dao.ProfileDao;
+import pl.endproject.offerscomparator.subdomains.userProfile.model.Address;
+import pl.endproject.offerscomparator.subdomains.userProfile.model.BasicInformation;
+import pl.endproject.offerscomparator.subdomains.userProfile.model.Profile;
+import pl.endproject.offerscomparator.subdomains.userRegistration.model.User;
+import pl.endproject.offerscomparator.subdomains.userRegistration.service.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.LocalDate;
 
 @Controller
 public class UserController {
 
     private final UserServiceImpl userService;
+    private final ProfileDao profileDao;
+    private User loginUser;
+    private Profile userProfile;
 
     @Autowired
-    public UserController(UserServiceImpl userService) {
+    public UserController(UserServiceImpl userService, ProfileDao profileDao) {
         this.userService = userService;
+        this.profileDao = profileDao;
     }
 
 
@@ -69,7 +76,7 @@ public class UserController {
     public String login(HttpSession session, @RequestParam(value = "username", required = true) String username,
                         @RequestParam(value = "password", required = true) String password) {
 
-        User loginUser = userService.loginUser(username, password);
+        loginUser = userService.loginUser(username, password);
         if (loginUser != null) {
             session.setAttribute("loginUser", loginUser);
         } else {
@@ -84,4 +91,45 @@ public class UserController {
         return "redirect:/offers";
     }
 
+    @GetMapping("/profile")
+    public String profile(HttpSession session) {
+        if (loginUser == null) {
+            return "redirect:/offers";
+        } else {
+            if (!profileDao.existsByEmail(loginUser.getEmail())) {
+                profileDao.save(new Profile(loginUser.getEmail(), loginUser.getLogin(), loginUser.getRole(), new BasicInformation(), new Address()));
+            }
+            userProfile = profileDao.findProfileByEmail(loginUser.getEmail());
+            session.setAttribute("userProfile", userProfile);
+            return "user-profile";
+        }
+    }
+
+    @PostMapping("/profile")
+    public String profile(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+
+        String action = request.getParameter("action");
+
+        switch (action) {
+            case "basicInformation":
+                userProfile.getBasicInformation().setFirstName(request.getParameter("firstName"));
+                userProfile.getBasicInformation().setLastName(request.getParameter("lastName"));
+                userProfile.getBasicInformation().setGender(request.getParameter("gender"));
+                userProfile.getBasicInformation().setBirthDate(LocalDate.parse(request.getParameter("birthDate")));
+                userProfile.getBasicInformation().setPhoneNumber(request.getParameter("phoneNumber"));
+
+                break;
+            case "address":
+                userProfile.getAddress().setAddress1(request.getParameter("address1"));
+                userProfile.getAddress().setAddress2(request.getParameter("address2"));
+                userProfile.getAddress().setZipCode(request.getParameter("zipCode"));
+                userProfile.getAddress().setCityTown(request.getParameter("cityTown"));
+                userProfile.getAddress().setCountry(request.getParameter("country"));
+
+                break;
+        }
+
+        profileDao.save(userProfile);
+        return "redirect:/profile";
+    }
 }

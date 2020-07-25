@@ -1,0 +1,12 @@
+/* Style all input fields */
+.movie_item_content_right {
+    float: right;
+}
+
+.movie_item_content_left {
+    float: left;
+}
+
+.movie_item_new_line {
+    clear: both;
+}
