@@ -26,7 +26,7 @@ public class UserController {
     private final UserServiceImpl userService;
     private final ProfileDao profileDao;
     private User loginUser;
-    private Profile userProfile;
+
 
     @Autowired
     public UserController(UserServiceImpl userService, ProfileDao profileDao) {
@@ -99,17 +99,17 @@ public class UserController {
             if (!profileDao.existsByEmail(loginUser.getEmail())) {
                 profileDao.save(new Profile(loginUser.getEmail(), loginUser.getLogin(), loginUser.getRole(), new BasicInformation(), new Address()));
             }
-            userProfile = profileDao.findProfileByEmail(loginUser.getEmail());
+            Profile userProfile = profileDao.findProfileByEmail(loginUser.getEmail());
             session.setAttribute("userProfile", userProfile);
             return "user-profile";
         }
     }
 
     @PostMapping("/profile")
-    public String profile(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+    public String profile(HttpServletRequest request, HttpSession session) throws IOException {
 
         String action = request.getParameter("action");
-
+        Profile userProfile = (Profile) session.getAttribute("userProfile");
         switch (action) {
             case "basicInformation":
                 userProfile.getBasicInformation().setFirstName(request.getParameter("firstName"));
