@@ -113,7 +113,12 @@ public class PdfService extends FileDownloaderService {
 
     private void fillPdfFile(PdfPTable pdfPTable, List<Product> products) throws IOException, BadElementException {
         for (Product product : products) {
-            PdfPCell imageValue = new PdfPCell(Image.getInstance(product.getImageUrl()), true);
+            PdfPCell imageValue;
+            try {
+               imageValue = new PdfPCell(Image.getInstance(product.getImageUrl()), true);
+            }catch (IOException e){
+                imageValue =new PdfPCell(Image.getInstance("src/main/resources/static/images/no-image.jpg"), true);
+            }
             imageValue.setPaddingLeft(10);
             imageValue.setHorizontalAlignment(Element.ALIGN_CENTER);
             imageValue.setVerticalAlignment(Element.ALIGN_CENTER);

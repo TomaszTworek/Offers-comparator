@@ -240,3 +240,7 @@ table.table .avatar {
     cursor: pointer;
 
 }
+
+.fa fa-spinner fa-spin {
+    position: absolute;
+}

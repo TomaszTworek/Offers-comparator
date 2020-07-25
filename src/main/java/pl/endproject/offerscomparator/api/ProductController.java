@@ -1,6 +1,7 @@
 package pl.endproject.offerscomparator.api;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,12 +11,14 @@ import pl.endproject.offerscomparator.subdomains.autocompleteFeature.Phrase;
 import pl.endproject.offerscomparator.subdomains.autocompleteFeature.Reader;
 import pl.endproject.offerscomparator.subdomains.autocompleteFeature.ReaderConfig;
 import pl.endproject.offerscomparator.subdomains.autocompleteFeature.SuggestionsWrapper;
+import pl.endproject.offerscomparator.infrastructure.memoryCache.MemoryCache;
 
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.URLEncoder;
+
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -27,6 +30,9 @@ public class ProductController {
     private final ReaderConfig readerConfig;
     private Reader reader;
     private List<Product> products;
+
+    @Autowired
+    private MemoryCache memoryCache;
 
     public ProductController(ProductService productService, ReaderConfig readerConfig, Reader reader) {
         this.productService = productService;
@@ -40,9 +46,10 @@ public class ProductController {
     }
 
     @GetMapping("/offers")
-    public String getOffers(Model model, @RequestParam(value = "userSearch", required = false, defaultValue = "") String userSearch, HttpSession session) {
+    public String getOffers(Model model, @RequestParam(value = "userSearch", required = false, defaultValue = "") String userSearch, HttpSession session, HttpServletResponse response) {
+        session.setAttribute("products", null);
+
         if (!userSearch.isBlank()) {
-            /*benchmark(userSearch);*/
 
             products = productService.findForPhraseAsync(userSearch);
 
@@ -50,7 +57,11 @@ public class ProductController {
                 return "no-results";
             }
             model.addAttribute("products", products);
-            session.setAttribute("products", products);
+
+            int id = memoryCache.saveProducts(products);
+
+            model.addAttribute("id",id);
+
         }
         return "getAll";
     }
@@ -68,7 +79,7 @@ public class ProductController {
     }
 
     @PostMapping("/findProducts")
-    public String findOffers(@RequestParam String userSearch, HttpServletRequest request) throws UnsupportedEncodingException {
+    public String findOffers(@RequestParam String userSearch) throws UnsupportedEncodingException {
         String encodedUserSearch = URLEncoder.encode(userSearch, StandardCharsets.UTF_8.toString());
 
         return "redirect:/offers?userSearch=" + encodedUserSearch;
@@ -90,4 +101,5 @@ public class ProductController {
         }
         return sw;
     }
+
 }
