@@ -116,7 +116,7 @@ public class UserController {
                 userProfile.getBasicInformation().setLastName(request.getParameter("lastName"));
                 userProfile.getBasicInformation().setGender(request.getParameter("gender"));
                 userProfile.getBasicInformation().setPhoneNumber(request.getParameter("phoneNumber"));
-                if (request.getParameter("birthDate") != null) {
+                if (!request.getParameter("birthDate").isEmpty()) {
                     userProfile.getBasicInformation().setBirthDate(LocalDate.parse(request.getParameter("birthDate")));
                 }
 
