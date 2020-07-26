@@ -30,8 +30,8 @@
                                 <label for="exampleInputEmail1">
                                     <i class="glyphicon glyphicon-envelope"></i> Email address / Username
                                 </label>
-                                <input th:name="username" type="email" class="form-control" id="exampleInputEmail1"
-                                       placeholder="Enter email / uername"/>
+                                <input th:name="username" type="text" class="form-control" id="exampleInputEmail1"
+                                       placeholder="Enter email / username"/>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">
@@ -60,7 +60,6 @@
                     <div class="submenu" style="display: none; ">
                         <ul class="root">
                             <li><a href="/profile">Profile</a></li>
-                            <li><a href="#">Settings</a></li>
                             <form id="myForm" th:action="@{/logout}" method="post">
                                <div id="myDiv"><li><a href="#">Log out</a></li></div>
                             </form>
