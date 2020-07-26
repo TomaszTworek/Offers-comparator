@@ -12,10 +12,11 @@ div.submenu
     z-index: 100;
     width: 135px;
     display: none;
-    margin-left: 10px;
+    margin-left: -5px;
     padding: 40px 0 5px;
     border-radius: 6px;
 }
+
 .dropdown  li a {
     color: #555555;
     display: block;
@@ -24,12 +25,35 @@ div.submenu
     padding: 6px 15px;
     cursor: pointer;
     text-decoration:none;
+    font-size:14px;
 }
 .dropdown li a:hover{
     background:#155FB0;
     color: #FFFFFF;
     text-decoration: none;
 }
+
+
+.dropdown-toggle  {
+   color: #a6a4a4;
+   margin-top:8%;
+    display: block;
+    font-family: arial;
+
+    padding: 6px 15px;
+    cursor: pointer;
+    text-decoration:none;
+    background-color: Transparent;
+    border-color:transparent;
+}
+
+.dropdown-toggle:hover  {
+
+   background:transparent;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
 a.account {
     font-size: 11px;
     line-height: 16px;

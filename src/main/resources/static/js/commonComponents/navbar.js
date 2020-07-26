@@ -1,3 +1,11 @@
+const loginBtn = document.querySelector('.dropdown-toggle'),
+dropdown = document.querySelector('.dropdown');
+
+function dropdownHandler() {
+dropdown.classList.toggle('open');
+}
+
+
 $(document).ready(function()
 {
     $(".account").click(function()
@@ -35,3 +43,6 @@ $("#myDiv").click(function() {
 $('.stop-propagation').on('click', function (e) {
     e.stopPropagation();
 });
+
+
+
