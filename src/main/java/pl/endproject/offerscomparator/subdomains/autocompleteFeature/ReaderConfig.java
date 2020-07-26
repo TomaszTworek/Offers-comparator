@@ -2,6 +2,7 @@ package pl.endproject.offerscomparator.subdomains.autocompleteFeature;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -34,8 +35,10 @@ public class ReaderConfig {
         Scanner sc = null;
 
         try {
-            inputStream = new FileInputStream(PATH);
-            sc = new Scanner(inputStream, StandardCharsets.UTF_8);
+            System.out.println("loading odmWithoutSynonyms.txt");
+            ClassPathResource classPathResource = new ClassPathResource("odmWithoutSynonyms.txt");
+//            inputStream = new FileInputStream(classPathResource.getFile());
+            sc = new Scanner(classPathResource.getInputStream(), StandardCharsets.UTF_8);
 
             while (sc.hasNextLine()) {
                 String line = clearString(sc.nextLine());
@@ -43,6 +46,7 @@ public class ReaderConfig {
 
                 foundWords.addAll(Arrays.asList(lineArray));
             }
+            System.out.println("loaded odmWithoutSynonyms.txt");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
