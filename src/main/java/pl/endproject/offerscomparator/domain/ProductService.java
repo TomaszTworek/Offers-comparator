@@ -35,7 +35,7 @@ public class ProductService {
                 .forEach(thread -> thread.start());
         while (findByPhraseConsumer.size() != productRepository.size()){
             try {
-                /*System.out.println("waiting for results");*/
+
                 Thread.sleep(250);
             } catch (InterruptedException e) {
                 e.printStackTrace();
